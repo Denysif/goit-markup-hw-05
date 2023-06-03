@@ -138,11 +138,27 @@ img {
     line-height: 1.5;
     letter-spacing: 0.02em;
     color: var(--title-text-color);
+    position: relative;
 }
-.nav-list:hover {
-    color: #404bbf;
+
+/* .nav-list.current {
+    color: #404BBF;
+} */
+
+.nav-list.current::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background-color: #404BBF;
+    position: absolute;
+    bottom: -1px;
+
 }
-.nav-list:focus {
+.nav-list:hover,
+.nav-list:focus,
+.nav-list.current {
     color: #404bbf;
 }
 
@@ -414,9 +430,11 @@ color: #434455
 
 .team-soc-link:hover {
     background-color: #404BBF;
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .team-soc-link:focus {
     background-color: #404bbf;
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 
@@ -467,6 +485,7 @@ color: #434455
 .customers-link:focus {
     border-color: #404BBF;
     color: #404BBF;
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 /* .customers-link:hover .customers-icon,
 .cuxtomers-link:focus .customers-icon {
@@ -513,12 +532,14 @@ color: #434455
     background-color: #404BBF;
     border: 1px solid transparent;
     box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.08), 0px 2px 2px rgba(0, 0, 0, 0.12);
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .examples-btn:focus {
     color: #FFFFFF;
     background-color: #404BBF;
     border: 1px solid transparent;
     box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.08), 0px 2px 2px rgba(0, 0, 0, 0.12);
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .examples-list {
@@ -529,6 +550,11 @@ color: #434455
 
 .examples-meta {
     width: calc((100% - 48px) / 3);
+}
+
+.examples-meta:hover .examples-cover-text,
+.examples-meta:focus .examples-cover-text {
+    transform: translateY(0);
 }
 
 .examples-link {
@@ -543,6 +569,28 @@ color: #434455
     box-shadow: 0px 1px 6px rgba(46, 47, 66, 0.08),
         0px 1px 1px rgba(46, 47, 66, 0.16),
         0px 2px 1px rgba(46, 47, 66, 0.08);
+}
+
+.examples-cover {
+    position: relative;
+    overflow: hidden;
+}
+
+.examples-cover-text {
+    position: absolute;
+    top: 0;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: #F4F4FD;
+    padding-top: 40px;
+    padding-left: 32px;
+    padding-right: 32px;
+    background-color: var(--accent-color);
+    height: 100%;
+    transform: translateY(100%);
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 
@@ -653,9 +701,11 @@ color: #434455
 
 .footer-soc-link:hover {
     background-color: #31D0AA;
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .footer-soc-link:focus {
     background-color: #31D0AA;
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .footer-soc-icon {
@@ -663,3 +713,62 @@ color: #434455
     height: 24px;
     fill: var(--team-background-color);
 }
+
+.backdrop {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(46, 47, 66, 0.4);
+    top: 0;
+    transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1), visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    width: 408px;
+    min-height: 584px;
+    background: #FCFCFC;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14), 
+    0px 1px 3px rgba(0, 0, 0, 0.12), 
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    padding: 24px;
+}
+
+.backdrop.is-hidden .modal {
+    transform: translate(-50%, -50%) scale(0);
+}
+
+.modal-close {
+    width: 24px;
+    height: 24px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: #E7E9FC;
+    border-radius: 50%;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    background-color: var(--accent-color);
+}
+
+.modal-close:hover .modal-close-icon,
+.modal-close:focus .modal-close-icon {
+    fill: white;
+}
+
+.is-hidden {
+    visibility: none;
+    opacity: 0;
+    pointer-events: none;
+}
+
